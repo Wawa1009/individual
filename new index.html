@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Najwa's Flip Multimedia Profile 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card-container {
+      perspective: 1000px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    .card.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      backface-visibility: hidden;
+      background: #fff0f5;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      overflow-y: auto;
+      max-height: 85vh;
+    }
+
+    .card-front {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+    }
+
+    .profile-pic {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #ff99c8;
+      box-shadow: 0 0 10px #ffaad4;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 32px;
+      color: #ff5e78;
+    }
+
+    .flip-button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      background-color: #ff99c8;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .flip-button:hover {
+      background-color: #ff5e78;
+      transform: scale(1.05);
+    }
+
+    .tab-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tab-buttons button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 20px;
+      background: #ffaad4;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .tab-buttons button:hover,
+    .tab-buttons button.active {
+      background: #ff5e78;
+      transform: scale(1.05);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .info-box {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .info-label {
+      font-weight: bold;
+      color: #ff5e78;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #ffe4ed;
+    }
+
+    .gallery img {
+      width: 100%;
+      max-width: 180px;
+      margin: 5px;
+      border-radius: 15px;
+      border: 4px solid #ffaad4;
+      box-shadow: 0 0 10px rgba(255, 153, 200, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <div class="card" id="profileCard">
+      <div class="card-face card-front">
+        <img src="cute fox.jpg" alt="Profile" class="profile-pic">
+        <h1>Hi! Everyone! 💕</h1>
+        <p>Click the button to flip and see my full cute profile!</p>
+        <button class="flip-button" onclick="flipCard()">🔄 Flip</button>
+      </div>
+
+      <div class="card-face card-back">
+        <div class="tab-buttons">
+          <button class="tab-btn active" onclick="showTab(event, 'biodata')">Biodata</button>
+          <button class="tab-btn" onclick="showTab(event, 'skills')">Skills</button>
+          <button class="tab-btn" onclick="showTab(event, 'education')">Education</button>
+          <button class="tab-btn" onclick="showTab(event, 'experience')">Experience</button>
+          <button class="tab-btn" onclick="showTab(event, 'family')">Family</button>
+          <button class="tab-btn" onclick="showTab(event, 'gallery')">Gallery</button>
+          <button class="tab-btn" onclick="showTab(event, 'favorite')">Favorite</button>
+        </div>
+
+        <div id="biodata" class="tab-content active">
+         <center> <img src="my photo.jpg" class="profile-pic" alt="Najwa"></center>
+          <div class="info-box"><span class="info-label">Name:</span> NurFarhanah Najwa</div>
+          <div class="info-box"><span class="info-label">Birth Date:</span> 10 Sept 2004</div>
+          <div class="info-box"><span class="info-label">Age:</span> 21</div>
+          <div class="info-box"><span class="info-label">Email:</span> najwanurfarhanah4@gmail.com</div>
+          <div class="info-box"><span class="info-label">Current Time:</span> <span id="clock">--:--:--</span></div>
+          <a href="mailto:najwanurfarhanah4@gmail.com">📧 Email</a>
+        <a href="https://instagram.com" target="_blank">📷 Instagram</a>
+        <a href="https://www.tiktok.com" target="_blank">📱 TikTok</a>
+        <a href="https://x.com" target="_blank">📱 X</a>
+        </div>
+
+        <div id="skills" class="tab-content">
+          <ul>
+            <li>HTML/CSS – ★★★★☆</li>
+            <li>JavaScript – ★★★☆☆</li>
+            <li>Graphic Design – ★★★★☆</li>
+            <li>Communication – ★★★★☆</li>
+            <li>Teamwork – ★★★★☆</li>
+          </ul>
+        </div>
+
+        <div id="education" class="tab-content">
+            <center> <img src="logo tadika.jpeg" class="profile-pic" alt="Najwa"></center>
+             <center> <img src="sktu1.jpeg.jpeg" class="profile-pic" alt="Najwa"></center>
+               <center><img src="smk.jpg.jpg" class="profile-pic" alt="Najwa"></center>
+                <center><img src="LOGO UITM.png" class="profile-pic" alt="Najwa"></center>
+          <table>
+            <tr><th>Year</th><th>Institution</th><th>Location</th></tr>
+            <tr><td>2008–2010</td><td>Tadika Ihsan</td><td>Skudai</td></tr>
+            <tr><td>2011–2016</td><td>SK Taman Universiti 1</td><td>Skudai</td></tr>
+            <tr><td>2017–2021</td><td>SMK Taman Universiti 1</td><td>Skudai</td></tr>
+            <tr><td>2022–Now</td><td>UiTM</td><td>Segamat</td></tr>
+          </table>
+        </div>
+
+        <div id="experience" class="tab-content">
+          <div class="info-box"><span class="info-label">Internship:</span> 10 Feb – 4 April</div>
+          <ol>
+            <li>Created and designed responsive websites</li>
+            <li>Worked with UX/UI elements</li>
+            <li>Collaborated in a creative team</li>
+            <li>Presented updates to supervisors</li>
+          </ol>
+          <div class="info-box"><span class="info-label">Family Business:</span></div>
+          <ol>
+            <li>Be a cashier</li>
+            <li>Help family with food</li>
+            <li>Help family with finance</li>
+          </ol>
+        </div>
+
+        <div id="family" class="tab-content">
+           <center> <img src="family.jpg" class="profile-pic" alt="Najwa"></center>
+          <table>
+            <tr><th>Relation</th><th>Name</th><th>Age</th></tr>
+            <tr><td>Father</td><td>Muhamad Hanafi bin Kamat</td><td>48</td></tr>
+            <tr><td>Mother</td><td>Jaslina binti Ja'afar</td><td>50</td></tr>
+            <tr><td>Sister</td><td>Nurfarhanah Zulaikha</td><td>24</td></tr>
+            <tr><td>Myself</td><td>Nurfarhanah Najwa</td><td>21</td></tr>
+            <tr><td>Brother</td><td>Muhammad Farhan Zakwan</td><td>16</td></tr>
+            <tr><td>Sister</td><td>Nurfarhanah Nawwarah</td><td>11</td></tr>
+          </table>
+        </div>
+
+        <div id="gallery" class="tab-content">
+          <div class="gallery">
+            <img src="me.jpg" alt="me">
+            <img src="family.jpg" alt="family">
+            <img src="program.jpg" alt="program">
+            <img src="mpgps.jpg" alt="mpgps">
+            <img src="roblox.png" alt="roblox">
+            <img src="adventure.jpg" alt="adventure">
+            <img src="food.jpg" alt="food">
+          </div>
+        </div>
+
+        <div id="favorite" class="tab-content">
+          <center><p><strong>🎵 Favorite Song:</strong></p>
+          <audio controls><source src="Free  _ Official Lyric Video _ Sony Animation.mp3"></audio></center>
+          <p><strong>🎬 Favorite Video:</strong></p>
+         <center> <video width="320" height="240" controls><source src="rap.mp4" type="video/mp4"></video></center>
+          <div class="info-box"><span class="info-label">📚 Quote:</span> Believe in yourself, your tiredness, your pain will be replaced by happiness 💖</div>
+          <div class="info-box"><span class="info-label">🎮 Games:</span> Valorant, Roblox</div>
+          <div class="info-box"><span class="info-label">✈️ Travel:</span> Japan, Korea, Bali</div>
+          <div class="info-box"><span class="info-label">🦊 Animal:</span> Fox, Rabbit, Cat</div>
+          <div class="info-box"><span class="info-label">🥤 Drink:</span> Matcha Latte, Strawberry Milk</div>
+        </div>
+
+        <button class="flip-button" onclick="flipCard()">🔙 Flip Back</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function flipCard() {
+      const card = document.getElementById('profileCard');
+      card.classList.toggle('is-flipped');
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const clock = document.getElementById("clock");
+      if (clock) clock.textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function showTab(evt, id) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      evt.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>
